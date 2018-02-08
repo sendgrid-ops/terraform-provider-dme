@@ -1,6 +1,6 @@
 {
 	"comment": "",
-	"ignore": "appengine test github.com/hashicorp/nomad/",
+	"ignore": "test",
 	"package": [
 		{
 			"checksumSHA1": "FIL83loX9V9APvGQIjJpbxq53F0=",
@@ -543,11 +543,15 @@
 			"revisionTime": "2016-09-27T10:08:44Z"
 		},
 		{
-			"checksumSHA1": "8tEiK6vhVXuUbnWME5XNWLgvtSo=",
+			"checksumSHA1": "AGl6ajJ/14uZcNjsh8k6tO+N+g0=",
 			"comment": "v1.1-2-g5578a8c",
+			"origin": "github.com/samcrang/dnsmadeeasy",
 			"path": "github.com/soniah/dnsmadeeasy",
-			"revision": "5578a8c15e33958c61cf7db720b6181af65f4a9e",
-			"revisionTime": "2015-01-08T08:49:52Z"
+			"revision": "6e1609eb9e02a93a6f58a968d1a57fb2b6ab4b7a",
+			"revisionTime": "2015-11-18T20:37:14Z",
+			"tree": true,
+			"version": "fix_record_update",
+			"versionExact": "fix_record_update"
 		},
 		{
 			"checksumSHA1": "vE43s37+4CJ2CDU6TlOUOYE0K9c=",
