@@ -1,0 +1,5 @@
+steps:
+ - label: compile
+   artifact_paths: bin/terraform-provider-dme
+   command:
+     - 'docker run --rm -v $(pwd):/go/src/github.com/terraform-providers/terraform-provider-dme -w /go/src/github.com/terraform-providers/terraform-provider-dme golang:1.10 go build -v -o bin/terraform-provider-dme'
