@@ -1,5 +1,13 @@
 steps:
- - label: compile
-   artifact_paths: bin/terraform-provider-dme
-   command:
-     - 'docker run --rm -v $(pwd):/go/src/github.com/terraform-providers/terraform-provider-dme -w /go/src/github.com/terraform-providers/terraform-provider-dme golang:1.10 go build -v -o bin/terraform-provider-dme'
+  - plugins:
+      - golang-cross-compile#v1.3.0:
+          build: main.go
+          import: github.com/terraform-providers/terraform-provider-dme
+          targets:
+            - version: "1.11"
+              goos: linux
+              goarch: amd64
+            - version: "1.11"
+              goos: darwin
+              goarch: amd64
+              gomodule: "on"
