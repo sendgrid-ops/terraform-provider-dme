@@ -86,7 +86,12 @@ func resourceDMERecord() *schema.Resource {
 }
 
 func resourceDMERecordCreate(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*dnsmadeeasy.Client)
+	config := meta.(Config)
+	if !config.Buildkite {
+		log.Print("[WARN] Not in Buildkite - ignoring RecordCreate")
+		return nil
+	}
+	client, _ := config.Client()
 
 	domainid := d.Get("domainid").(string)
 	log.Printf("[INFO] Creating record for domainid: %s", domainid)
@@ -109,7 +114,12 @@ func resourceDMERecordCreate(d *schema.ResourceData, meta interface{}) error {
 }
 
 func resourceDMERecordRead(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*dnsmadeeasy.Client)
+	config := meta.(Config)
+	if !config.Buildkite {
+		log.Print("[WARN] Not in Buildkite - ignoring RecordRead")
+		return nil
+	}
+	client, _ := config.Client()
 
 	domainid := d.Get("domainid").(string)
 	recordid := d.Id()
@@ -129,7 +139,12 @@ func resourceDMERecordRead(d *schema.ResourceData, meta interface{}) error {
 }
 
 func resourceDMERecordUpdate(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*dnsmadeeasy.Client)
+	config := meta.(Config)
+	if !config.Buildkite {
+		log.Print("[WARN] Not in Buildkite - ignoring RecordUpdate")
+		return nil
+	}
+	client, _ := config.Client()
 
 	domainid := d.Get("domainid").(string)
 	recordid := d.Id()
@@ -148,7 +163,12 @@ func resourceDMERecordUpdate(d *schema.ResourceData, meta interface{}) error {
 }
 
 func resourceDMERecordDelete(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*dnsmadeeasy.Client)
+	config := meta.(Config)
+	if !config.Buildkite {
+		log.Print("[WARN] Not in Buildkite - ignoring RecordDelete")
+		return nil
+	}
+	client, _ := config.Client()
 
 	domainid := d.Get("domainid").(string)
 	recordid := d.Id()
