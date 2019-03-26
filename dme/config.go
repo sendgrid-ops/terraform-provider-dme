@@ -13,6 +13,7 @@ type Config struct {
 	AKey       string
 	SKey       string
 	UseSandbox bool
+	Buildkite  bool
 }
 
 // Client returns a new client for accessing DNSMadeEasy

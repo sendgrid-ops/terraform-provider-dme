@@ -13,21 +13,27 @@ func Provider() terraform.ResourceProvider {
 		Schema: map[string]*schema.Schema{
 			"akey": &schema.Schema{
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: envDefaultFunc("DME_AKEY"),
 				Description: "A DNSMadeEasy API Key.",
 			},
 			"skey": &schema.Schema{
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: envDefaultFunc("DME_SKEY"),
 				Description: "The Secret Key for API operations.",
 			},
 			"usesandbox": &schema.Schema{
 				Type:        schema.TypeBool,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: envDefaultFunc("DME_USESANDBOX"),
 				Description: "If true, use the DME Sandbox.",
+			},
+			"buildkite": &schema.Schema{
+				Type:        schema.TypeBool,
+				Optional:    true,
+				DefaultFunc: envDefaultFunc("BUILDKITE"),
+				Description: "If true, we are in buildkite (actually do stuff).",
 			},
 		},
 
@@ -58,6 +64,9 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 		AKey:       d.Get("akey").(string),
 		SKey:       d.Get("skey").(string),
 		UseSandbox: d.Get("usesandbox").(bool),
+		Buildkite:  d.Get("buildkite").(bool),
 	}
-	return config.Client()
+	// Confidently returning nil now because this here is too:
+	// https://github.com/soniah/dnsmadeeasy/blob/5578a8c15e33958c61cf7db720b6181af65f4a9e/api.go#L60
+	return config, nil
 }
