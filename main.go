@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/plugin"
-	"github.com/terraform-providers/terraform-provider-dme/dme"
+	"github.com/sendgrid-ops/terraform-provider-dme/dme"
 )
 
 func main() {

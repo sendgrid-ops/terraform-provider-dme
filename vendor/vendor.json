@@ -574,5 +574,5 @@
 			"versionExact": "v1.6.1"
 		}
 	],
-	"rootPath": "github.com/terraform-providers/terraform-provider-dme"
+	"rootPath": "github.com/sendgrid-ops/terraform-provider-dme"
 }
