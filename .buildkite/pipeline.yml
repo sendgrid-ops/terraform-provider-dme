@@ -2,7 +2,7 @@ steps:
   - plugins:
       - golang-cross-compile#v1.3.0:
           build: main.go
-          import: github.com/terraform-providers/terraform-provider-dme
+          import: github.com/sendgrid-ops/terraform-provider-dme
           targets:
             - version: "1.11"
               goos: linux
