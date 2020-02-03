@@ -41,7 +41,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
-			"mxlevel": &schema.Schema{
+			"mx_level": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
