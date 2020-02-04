@@ -336,7 +336,7 @@ func TestAccDMERecordSRV(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"dme_record.test", "ttl", "2000"),
 					resource.TestCheckResourceAttr(
-						"dme_record.test", "gtdLocation", "DEFAULT"),
+						"dme_record.test", "gtd_location", "DEFAULT"),
 				),
 			},
 		},
@@ -344,7 +344,15 @@ func TestAccDMERecordSRV(t *testing.T) {
 }
 
 func testAccCheckDMERecordDestroy(s *terraform.State) error {
-	client := testAccProvider.Meta().(*dnsmadeeasy.Client)
+	conf, ok := testAccProvider.Meta().(Config)
+	if !ok {
+		return fmt.Errorf("bad cast 2")
+	}
+
+	client, err := conf.Client()
+	if err != nil {
+		return err
+	}
 
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "dnsmadeeasy_record" {
@@ -373,7 +381,14 @@ func testAccCheckDMERecordExists(n string, record *dnsmadeeasy.Record) resource.
 			return fmt.Errorf("No Record ID is set")
 		}
 
-		client := testAccProvider.Meta().(*dnsmadeeasy.Client)
+		conf, ok := testAccProvider.Meta().(Config)
+		if !ok {
+			return fmt.Errorf("bad cast")
+		}
+		client, err := conf.Client()
+		if err != nil {
+			return err
+		}
 
 		foundRecord, err := client.ReadRecord(rs.Primary.Attributes["domainid"], rs.Primary.ID)
 
