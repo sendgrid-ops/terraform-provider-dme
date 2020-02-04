@@ -1,4 +1,4 @@
-module github.com/terraform-providers/terraform-provider-dme
+module github.com/sendgrid-ops/terraform-provider-dme
 
 go 1.12
 
