@@ -41,7 +41,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
-			"mxLevel": &schema.Schema{
+			"mx_level": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
@@ -65,11 +65,11 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"hardLink": &schema.Schema{
+			"hard_link": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
 			},
-			"redirectType": &schema.Schema{
+			"redirect_type": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -77,7 +77,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"gtdLocation": &schema.Schema{
+			"gtd_location": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -195,7 +195,7 @@ func getAll(d *schema.ResourceData, cr map[string]interface{}) error {
 	if attr, ok := d.GetOk("value"); ok {
 		cr["value"] = attr.(string)
 	}
-	if attr, ok := d.GetOk("gtdLocation"); ok {
+	if attr, ok := d.GetOk("gtd_location"); ok {
 		cr["gtdLocation"] = attr.(string)
 	}
 
@@ -203,7 +203,7 @@ func getAll(d *schema.ResourceData, cr map[string]interface{}) error {
 	case "A", "CNAME", "ANAME", "TXT", "SPF", "NS", "PTR", "AAAA":
 		// all done
 	case "MX":
-		if attr, ok := d.GetOk("mxLevel"); ok {
+		if attr, ok := d.GetOk("mx_level"); ok {
 			cr["mxLevel"] = int64(attr.(int))
 		}
 	case "SRV":
@@ -217,10 +217,10 @@ func getAll(d *schema.ResourceData, cr map[string]interface{}) error {
 			cr["port"] = int64(attr.(int))
 		}
 	case "HTTPRED":
-		if attr, ok := d.GetOk("hardLink"); ok && attr.(bool) {
+		if attr, ok := d.GetOk("hard_link"); ok && attr.(bool) {
 			cr["hardLink"] = "true"
 		}
-		if attr, ok := d.GetOk("redirectType"); ok {
+		if attr, ok := d.GetOk("redirect_type"); ok {
 			cr["redirectType"] = attr.(string)
 		}
 		if attr, ok := d.GetOk("title"); ok {
@@ -245,7 +245,7 @@ func setAll(d *schema.ResourceData, rec *dnsmadeeasy.Record) error {
 	d.Set("value", rec.Value)
 	// only set gtdLocation if it is given as this is optional.
 	if rec.GtdLocation != "" {
-		d.Set("gtdLocation", rec.GtdLocation)
+		d.Set("gtd_location", rec.GtdLocation)
 	}
 
 	switch rec.Type {
@@ -255,14 +255,14 @@ func setAll(d *schema.ResourceData, rec *dnsmadeeasy.Record) error {
 		// overwrite value set above - DME ipv6 is lower case
 		d.Set("value", strings.ToLower(rec.Value))
 	case "MX":
-		d.Set("mxLevel", rec.MXLevel)
+		d.Set("mx_level", rec.MXLevel)
 	case "SRV":
 		d.Set("priority", rec.Priority)
 		d.Set("weight", rec.Weight)
 		d.Set("port", rec.Port)
 	case "HTTPRED":
-		d.Set("hardLink", rec.HardLink)
-		d.Set("redirectType", rec.RedirectType)
+		d.Set("hard_link", rec.HardLink)
+		d.Set("redirect_type", rec.RedirectType)
 		d.Set("title", rec.Title)
 		d.Set("keywords", rec.Keywords)
 		d.Set("description", rec.Description)
